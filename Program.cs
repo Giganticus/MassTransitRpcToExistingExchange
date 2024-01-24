@@ -28,13 +28,13 @@ namespace GettingStarted
                                 h.Password("guest");
                             });
                             
-                            cfg.ConfigureSend(x =>
-                            {
-                                x.UseSendExecute(c =>
-                                {
-                                    c.Headers.Set("FLOW", "FlowName");
-                                });
-                            });
+                            // cfg.ConfigureSend(x =>
+                            // {
+                            //     x.UseSendExecute(c =>
+                            //     {
+                            //         c.Headers.Set("FLOW", "FlowName");
+                            //     });
+                            // });
                         });
                         
                         x.AddRequestClient<WorkflowRequest>(new Uri("exchange:my.existing.exchange?type=direct"));
