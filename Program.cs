@@ -27,8 +27,6 @@ namespace GettingStarted
                                 h.Username("guest");
                                 h.Password("guest");
                             });
-                           
-                            //cfg.ConfigureEndpoints(context);
                             
                             cfg.ConfigureSend(x =>
                             {
