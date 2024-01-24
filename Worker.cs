@@ -28,8 +28,9 @@ public class WorkflowRequester(
                 throw new Exception("Unable to resolve client");
             
             var response = await requestClient.GetResponse<WorkflowResponse>(
-                new WorkflowRequest
+                new 
                 {
+                    __Header_FLOW = "FIXING",
                     Payload = "hello world"
                 }, stoppingToken, timeout: RequestTimeout.None);
 
