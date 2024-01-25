@@ -28,11 +28,11 @@ public class WorkflowRequester(
                 throw new Exception("Unable to resolve client");
             
             var response = await requestClient.GetResponse<WorkflowResponse>(
-                new 
-                {
-                    __Header_FLOW = "FIXING",
-                    Payload = "hello world"
-                }, stoppingToken, timeout: RequestTimeout.None);
+                new WorkflowRequest 
+                { Payload = "hello world" },
+                x => x.UseExecute(context => context.Headers.Set("FLOW", "RequestedFlowName")),
+                stoppingToken, 
+                timeout: RequestTimeout.None);
 
             logger.LogInformation($"Received response {JsonSerializer.Serialize(response)}");        
             
