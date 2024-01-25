@@ -2,7 +2,6 @@
 
 namespace GettingStarted.Contracts;
 
-[ExcludeFromTopology]
 public class WorkflowResponse
 {
     public Compass compass { get; set; }
