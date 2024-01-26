@@ -1,6 +1,5 @@
 using System;
 using System.Threading.Tasks;
-using GettingStartedClient.Contracts;
 using Microsoft.Extensions.Hosting;
 using MassTransit;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,16 +26,13 @@ namespace GettingStartedClient
                             {
                                 h.Username("guest");
                                 h.Password("guest");
-                            });
-                            
-                            //cfg.UseNewtonsoftJsonSerializer();
-                            cfg.UseRawJsonDeserializer();
-                            cfg.UseNewtonsoftRawJsonDeserializer();
+                            });                           
+                           
+                            cfg.UseRawJsonSerializer(isDefault:true);
                             cfg.UseNewtonsoftRawJsonSerializer();
-                            
+                            cfg.UseRawJsonDeserializer(isDefault:true);
+                            cfg.UseNewtonsoftRawJsonDeserializer();
                         });
-                        
-                                                
                         x.AddRequestClient<JObject>(new Uri("exchange:my.existing.exchange?type=direct"));
                     });
                    

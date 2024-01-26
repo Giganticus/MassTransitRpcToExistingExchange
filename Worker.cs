@@ -36,7 +36,7 @@ public class WorkflowRequester(
                 stoppingToken, 
                 timeout: RequestTimeout.None);
 
-            logger.LogInformation($"Received response {JsonSerializer.Serialize(response)}");        
+            logger.LogInformation($"Received response {response.Message}");        
             
             await Task.Delay(1000, stoppingToken);
         }
