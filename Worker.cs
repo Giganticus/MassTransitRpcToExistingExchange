@@ -2,13 +2,14 @@
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
-using GettingStarted.Contracts;
+using GettingStartedClient.Contracts;
 using MassTransit;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json.Linq;
 
-namespace GettingStarted;
+namespace GettingStartedClient;
 
 public class WorkflowRequester(
     IHost host,
@@ -22,14 +23,15 @@ public class WorkflowRequester(
         {
             using var scope = scopeFactory.CreateScope();
             
-            var requestClient = (IRequestClient<WorkflowRequest>)scope.ServiceProvider.GetService(typeof(IRequestClient<WorkflowRequest>));
+            var requestClient = (IRequestClient<JObject>)scope.ServiceProvider.GetService(typeof(IRequestClient<JObject>));
             
             if (requestClient == null)
                 throw new Exception("Unable to resolve client");
+
+            var jObject = JObject.Parse("{\"someJsonValueName\" : \"someJsonValue\"}");
             
-            var response = await requestClient.GetResponse<WorkflowResponse>(
-                new WorkflowRequest 
-                { Payload = "hello world" },
+            var response = await requestClient.GetResponse<JObject>(
+                jObject,
                 x => x.UseExecute(context => context.Headers.Set("FLOW", "RequestedFlowName")),
                 stoppingToken, 
                 timeout: RequestTimeout.None);

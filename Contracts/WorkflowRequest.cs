@@ -1,6 +1,6 @@
-﻿namespace GettingStarted.Contracts;
+﻿namespace GettingStartedClient.Contracts;
 
-public class WorkflowRequest
-{
-    public string Payload { get; init; }
-}
+// public class WorkflowRequest
+// {
+//     public string Payload { get; init; }
+// }

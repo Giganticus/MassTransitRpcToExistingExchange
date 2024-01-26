@@ -1,11 +1,12 @@
 using System;
 using System.Threading.Tasks;
-using GettingStarted.Contracts;
+using GettingStartedClient.Contracts;
 using Microsoft.Extensions.Hosting;
 using MassTransit;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json.Linq;
 
-namespace GettingStarted
+namespace GettingStartedClient
 {
     public class Program
     {
@@ -27,9 +28,16 @@ namespace GettingStarted
                                 h.Username("guest");
                                 h.Password("guest");
                             });
+                            
+                            //cfg.UseNewtonsoftJsonSerializer();
+                            cfg.UseRawJsonDeserializer();
+                            cfg.UseNewtonsoftRawJsonDeserializer();
+                            cfg.UseNewtonsoftRawJsonSerializer();
+                            
                         });
                         
-                        x.AddRequestClient<WorkflowRequest>(new Uri("exchange:my.existing.exchange?type=direct"));
+                                                
+                        x.AddRequestClient<JObject>(new Uri("exchange:my.existing.exchange?type=direct"));
                     });
                    
                    services.AddHostedService<WorkflowRequester>();

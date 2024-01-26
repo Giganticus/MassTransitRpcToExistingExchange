@@ -1,6 +1,6 @@
 ﻿using MassTransit;
 
-namespace GettingStarted.Contracts;
+namespace GettingStartedClient.Contracts;
 
 public class WorkflowResponse
 {
